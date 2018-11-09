@@ -19,7 +19,7 @@ public class GemDistribution {
     private Country country;
 	
 	@ManyToOne
-    @JoinColumn(name = "countryName")
+    @JoinColumn(name = "gemName")
     private Gem gem;
 	
 	@Column
