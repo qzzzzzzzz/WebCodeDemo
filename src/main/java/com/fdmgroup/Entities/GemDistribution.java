@@ -3,6 +3,8 @@ package com.fdmgroup.Entities;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -11,6 +13,15 @@ public class GemDistribution {
 	
 	@EmbeddedId
     private GemDistributionId gdId;
+	
+	@ManyToOne
+    @JoinColumn(name = "countryName")
+    private Country country;
+	
+	@ManyToOne
+    @JoinColumn(name = "countryName")
+    private Gem gem;
+	
 	@Column
 	private String extraInfo;
 	

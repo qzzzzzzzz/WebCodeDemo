@@ -3,6 +3,8 @@ package com.fdmgroup.Entities;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -11,27 +13,33 @@ public class Search {
 	
 	@Id 
 	private int searchId;
+	@ManyToOne
+	@JoinColumn(name="username")
+	private User user;
+	@ManyToOne
+	@JoinColumn(name="gemName")
+	private Gem gem;
+	@ManyToOne
+	@JoinColumn(name="countryName")
+	private Country country;
 	@Column
-	private String username;
-	private String gem;
-	private String country;
 	private int searchByGem; //1 = searchByGem, 0 = searchByCountry
 	
-	public Search(int searchId, String username, String target, int searchByGem) {
+	public Search(int searchId, User user, Gem gem, Country country, int searchByGem) {
 		
 		if (searchByGem == 1) {
 			
 			this.searchId = searchId;
-			this.username = username;
-			this.gem = target;
+			this.user = user;
+			this.gem = gem;
 			this.country = null;
 			this.searchByGem = searchByGem;
 		
 		}else {
 			
 			this.searchId = searchId;
-			this.username = username;
-			this.country = target;
+			this.user = user;
+			this.country = country;
 			this.gem = null;
 			this.searchByGem = searchByGem;
 		}
@@ -41,7 +49,7 @@ public class Search {
 		
 		
 	}
-
+	
 	public int getSearchId() {
 		return searchId;
 	}
@@ -50,40 +58,38 @@ public class Search {
 		this.searchId = searchId;
 	}
 
-	public String getUsername() {
-		return username;
+	public User getUser() {
+		return user;
 	}
 
-	public void setUsername(String username) {
-		this.username = username;
+	public void setUser(User user) {
+		this.user = user;
 	}
 
-	public String getGem() {
+	public Gem getGem() {
 		return gem;
 	}
 
-	public void setGem(String gem) {
+	public void setGem(Gem gem) {
 		this.gem = gem;
 	}
 
-	public String getCountry() {
+	public Country getCountry() {
 		return country;
 	}
 
-	public void setCountry(String country) {
+	public void setCountry(Country country) {
 		this.country = country;
 	}
 
-	public int isSearchByGem() {
+	public int getSearchByGem() {
 		return searchByGem;
 	}
 
 	public void setSearchByGem(int searchByGem) {
 		this.searchByGem = searchByGem;
 	}
-	
-	
-	
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -92,7 +98,7 @@ public class Search {
 		result = prime * result + ((gem == null) ? 0 : gem.hashCode());
 		result = prime * result + searchByGem;
 		result = prime * result + searchId;
-		result = prime * result + ((username == null) ? 0 : username.hashCode());
+		result = prime * result + ((user == null) ? 0 : user.hashCode());
 		return result;
 	}
 
@@ -119,10 +125,10 @@ public class Search {
 			return false;
 		if (searchId != other.searchId)
 			return false;
-		if (username == null) {
-			if (other.username != null)
+		if (user == null) {
+			if (other.user != null)
 				return false;
-		} else if (!username.equals(other.username))
+		} else if (!user.equals(other.user))
 			return false;
 		return true;
 	}
@@ -132,11 +138,11 @@ public class Search {
 		
 		if (searchByGem == 1) {
 			
-			return "Search [search_id=" + searchId + ", username=" + username + ", gem=" + gem + ", searchByGem]";
+			return "Search [search_id=" + searchId + ", user=" + user + ", gem=" + gem + ", searchByGem]";
 		
 		}else {
 			
-			return "Search [search_id=" + searchId + ", username=" + username + ", country=" + country + ", searchByCountry]";
+			return "Search [search_id=" + searchId + ", user=" + user + ", country=" + country + ", searchByCountry]";
 		}
 	}
 	
